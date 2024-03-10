@@ -1,12 +1,12 @@
 
 import React from "react";
 
-const Part = () => {
+const Part = ({ title, count }) => {
 
     return (
-        <>
-           Part 
-        </>
+        <p>
+            { title } { count }
+        </p>
     )
 }
 

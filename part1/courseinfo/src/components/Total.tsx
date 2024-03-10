@@ -1,11 +1,11 @@
 import React from "react";
 
-const Total = () => {
+const Total = ({total}) => {
 
     return (
-        <>
-           Total 
-        </>
+        <p>
+           Number of exercises: { total }
+        </p>
     )
 }
 

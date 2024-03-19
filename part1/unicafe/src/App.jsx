@@ -13,7 +13,7 @@ function App() {
     bad,
     average: 0,
     total: 0,
-    other: 0 
+    positive: 0 
   });
 
   const setComment = (value, type) => {
@@ -62,9 +62,10 @@ function App() {
     const {good, bad, neutral} = state;
 
     const total = good + bad + neutral,
-          average = (total / 3).toFixed(2);
+          average = ((good - bad) / total).toFixed(2),
+          positive = ((good / total) * 100).toFixed(2);
 
-    return {average, total};
+    return {average, total, positive};
   }
 
   return (

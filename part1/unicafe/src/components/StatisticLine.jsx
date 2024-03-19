@@ -1,9 +1,16 @@
-const StatisticLine = ({text, value}) => {
+const StatisticLine = ({text, value, format}) => {
 
     return (
-        <div>
-            { text } { value }
-        </div>
+        <>
+        <tr>
+            <td>
+            { text }
+            </td>
+            <td>
+            { value } { format === 'percent' && '%'} 
+            </td>
+        </tr>
+        </>
     )
 } 
 

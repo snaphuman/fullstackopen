@@ -47,8 +47,8 @@ function App() {
   ];
 
   const [anecdotes, setAnecdotes] = useState(anecdotesMock)
-
   const [selected, setSelected] = useState(null);
+  const [mostVoted, setMostVoted] =  useState(null);
 
   const shuffleAnecdotes = () => {
     const rnd = Math.floor(Math.random() * anecdotes.length);
@@ -64,18 +64,19 @@ function App() {
           return  item.id === selected.id ? {...item, votes: item.votes + 1 } : item
         }
       );
-    
+
+      const [anecdotesHead, ..._rest] = newAnecdotes.sort((a, b) => b.votes - a.votes);
+
       setAnecdotes(newAnecdotes);
+      setMostVoted(anecdotesHead);
     }
 
   }
 
   return (
     <div>
-      <h1>Anecdote of the day</h1>
       <Anecdote selected={selected} selectHandler={() => shuffleAnecdotes} voteHandler={() => voteFavorite} type='random' />
-      <h1>Anecdote with most voted</h1> 
-      <Anecdote type='mostVoted' />
+      <Anecdote mostVoted={mostVoted} type='mostVoted' />
     </div>
   )
 }

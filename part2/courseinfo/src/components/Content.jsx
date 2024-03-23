@@ -5,7 +5,7 @@ const Content = ({ parts }) =>
   <ul>
       {
         parts.map(part =>
-            <Part {...part} />
+            <Part key={part.id} {...part} />
         )
     }
 

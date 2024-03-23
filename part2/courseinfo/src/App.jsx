@@ -52,7 +52,7 @@ const App = () => {
     <div>
       {
         courses.map(course => 
-          <Course {...course} />
+          <Course key={course.id} {...course} />
         )
       }
     </div>

@@ -3,7 +3,7 @@ import Content from "./Content";
 import Total from "./Total";
 
   
-  const Course = ({name, id, parts}) => {
+  const Course = ({name, parts}) => {
 
     const add = (a, b) => a + b;
 
@@ -12,7 +12,7 @@ import Total from "./Total";
                         add(excercise, total), 0);
 
     return (
-        <div key={id}>
+        <div>
             <Header course={name} />
             <Content parts={parts} />
             <Total sum={total} />

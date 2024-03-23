@@ -1,7 +1,7 @@
 
 
-const Part = ({ name, id, exercises }) => 
-  <li key={id}>
+const Part = ({ name, exercises }) => 
+  <li>
     {name} {exercises}
   </li>;
 

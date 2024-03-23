@@ -3,13 +3,19 @@ import Content from "./Content";
 import Total from "./Total";
 
   
-  const Course = ({course, parts}) => {
+  const Course = ({name, id, parts}) => {
+
+    const add = (a, b) => a + b;
+
+    const total = parts.map(part => part.exercises )
+                       .reduce((total, excercise) => 
+                        add(excercise, total), 0);
 
     return (
-        <div>
-            <Header course={course} />
+        <div key={id}>
+            <Header course={name} />
             <Content parts={parts} />
-            <Total sum={parts[0].exercises + parts[1].exercises + parts[2].exercises} />
+            <Total sum={total} />
         </div>
     )
 

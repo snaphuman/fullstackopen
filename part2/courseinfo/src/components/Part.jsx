@@ -1,9 +1,8 @@
 
 
-const Part = ({ part }) => 
-  <p>
-    {part.name} {part.exercises}
-  </p>;
-
+const Part = ({ name, id, exercises }) => 
+  <li key={id}>
+    {name} {exercises}
+  </li>;
 
 export default Part;

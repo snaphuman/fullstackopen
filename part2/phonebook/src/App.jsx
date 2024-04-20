@@ -1,16 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 import Messages from "./components/Messages";
 import Filter from "./components/Filter";
 import ContactForm from "./components/ContactForm";
 import Contacts from "./components/Contacts";
-import ContactsMock from "./data/ContactsMock";
 
 function App() {
   
-  const [contacts, setContacts] = useState(ContactsMock);
+  const [contacts, setContacts] = useState([]);
   const [filtered, setFiltered] = useState(contacts);
-  const [showAll, setShowAll] = useState(true);
   const [message, setMessage] = useState(null);
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/contacts')
+         .then((resp) => { 
+          setContacts(resp.data);
+          setFiltered(resp.data);
+        });
+  }, [])
 
   const handleSetContacts = (contact) => {
     setContacts([...contacts, contact]);

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import axios from 'axios';
 import Messages from "./components/Messages";
 import Filter from "./components/Filter";
 import ContactForm from "./components/ContactForm";
 import Contacts from "./components/Contacts";
+import http from "./utils/http";
 
 function App() {
   
@@ -12,11 +12,11 @@ function App() {
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/contacts')
-         .then((resp) => { 
-          setContacts(resp.data);
-          setFiltered(resp.data);
-        });
+    http.getContacts()
+        .then(contacts => {
+          setContacts(contacts);
+          setFiltered(contacts);
+    })
   }, [])
 
   const handleSetContacts = (contact) => {

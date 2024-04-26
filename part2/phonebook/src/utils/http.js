@@ -6,6 +6,12 @@ const getContacts = () =>  {
     return req.then(resp => resp.data)
 }
 
+const saveContact = (contact) => {
+    const req = axios.post(apiUrl, contact);
+    return req.then(res => res.data);
+} 
+
 export default {
-    getContacts
+    getContacts,
+    saveContact
 }

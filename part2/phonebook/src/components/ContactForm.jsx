@@ -1,3 +1,4 @@
+import http from "../utils/http";
 import Header from "./Header";
 import { useState } from "react";
 
@@ -11,6 +12,7 @@ const ContactForm = ({title, handleAddContact, handleDuplicated}) => {
     const handleSubmit = (ev) => {
         ev.preventDefault();
         handleAddContact(contact)
+        http.saveContact(contact).then(console.log)
     }
 
     const handleNameChange = ({target}) => {

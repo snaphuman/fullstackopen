@@ -13,11 +13,17 @@ const saveContact = (contact) => {
 
 const removeContact = (id) => {
     const req = axios.delete(`${apiUrl}/${id}`);
-    return req.then(res => res.data)
+    return req.then(res => res.data);
+}
+
+const updateContact = (contact) => {
+    const req = axios.put(`${apiUrl}/${contact.id}`, contact);
+    return req.then(res => res.data);
 }
 
 export default {
     getContacts,
     saveContact,
     removeContact,
+    updateContact,
 }

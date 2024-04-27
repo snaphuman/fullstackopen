@@ -24,11 +24,34 @@ function App() {
     setFiltered([...filtered, contact]);
   }
 
-  const handleDuplicated = (name) => {
-    const isDuplicated = contacts.findIndex(contact => contact.name === name) !== -1
-    const msg = `${name} is Duplicated`;
+  const handleFindDuplicated = (name) => {
+    const duplicated = contacts.find(contact => contact.name === name);
+    if (duplicated) {
+      const msg = `${duplicated.name} is Duplicated`;
 
-    setMessage(isDuplicated ? msg : null);
+      setMessage(!!duplicated ? msg : null);
+      return duplicated;
+    }
+  }
+
+  const handleUpdate = (contact) => {
+    const msg = `${contact.name} is already added to phonebook, replace the  old number with a new one`;
+    const confirm = window.confirm(msg);
+
+    if (confirm) {
+      http.updateContact(contact).then(res => {
+        console.log('updated', res);
+        const newList = filtered.map(item => {
+          if (item.id === res.id) {
+            item.number = res.number;
+          }
+          return item;
+        });
+
+        setFiltered(newList);
+        setContacts(newList);
+      });
+    }
   }
 
   const handleRemove = ({id, name}) => {
@@ -58,7 +81,12 @@ function App() {
     <>
     <Messages message={message} />
     <Filter title="Phonebook" handleFilter={handleFilter} />
-    <ContactForm title="Contact Info" handleAddContact={handleSetContacts} handleDuplicated={handleDuplicated} />
+    <ContactForm 
+      title="Contact Info" 
+      handleAddContact={handleSetContacts} 
+      handleUpdateContact={handleUpdate} 
+      handleFindDuplicated={handleFindDuplicated} 
+    />
     <Contacts list={filtered} handleRemoveContact={handleRemove} />
     </>
   )

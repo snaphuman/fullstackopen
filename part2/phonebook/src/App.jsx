@@ -31,6 +31,20 @@ function App() {
     setMessage(isDuplicated ? msg : null);
   }
 
+  const handleRemove = ({id, name}) => {
+    const msg = `Are you sure to remove ${name}?`;
+    const confirm = window.confirm(msg);
+
+    if (confirm) {
+      http.removeContact(id).then((res) => {
+        const newList = filtered.filter(item => item.id !== res.id);
+
+        setFiltered(newList);
+        setContacts(newList);
+      })
+    }
+  }
+
   const handleFilter = (value) => {
     const pattern = new RegExp(value);
     const filtered = contacts.filter(contact => {
@@ -45,10 +59,7 @@ function App() {
     <Messages message={message} />
     <Filter title="Phonebook" handleFilter={handleFilter} />
     <ContactForm title="Contact Info" handleAddContact={handleSetContacts} handleDuplicated={handleDuplicated} />
-    <Contacts list={filtered} />
-
-
-      
+    <Contacts list={filtered} handleRemoveContact={handleRemove} />
     </>
   )
 }

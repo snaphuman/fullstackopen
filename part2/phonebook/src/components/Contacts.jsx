@@ -1,5 +1,4 @@
-
-const Contacts = ({list}) => {
+const Contacts = ({list, handleRemoveContact}) => {
 
     return  (
         <ul>
@@ -8,6 +7,9 @@ const Contacts = ({list}) => {
                 <li key={index}>
                     { contact.name }
                     { contact.number }
+                    <span>
+                        <button onClick={() => handleRemoveContact(contact)}>Remove</button>
+                    </span>
                 </li>
             ))
         }

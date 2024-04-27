@@ -11,8 +11,9 @@ const ContactForm = ({title, handleAddContact, handleDuplicated}) => {
 
     const handleSubmit = (ev) => {
         ev.preventDefault();
-        handleAddContact(contact)
-        http.saveContact(contact).then(console.log)
+        http.saveContact(contact).then(res => {
+            handleAddContact(res);
+        })
     }
 
     const handleNameChange = ({target}) => {

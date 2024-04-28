@@ -2,10 +2,9 @@ import http from "../utils/http";
 import Header from "./Header";
 import { useState } from "react";
 
-const ContactForm = ({title, handleAddContact, handleUpdateContact, handleFindDuplicated}) => {
+const ContactForm = ({title, handleSaveContact, handleUpdateContact, handleFindDuplicated}) => {
 
     const [duplicated, setDuplicated] = useState(undefined);
-
     const [contact, setContact] = useState({
         name: '',
         number: '',
@@ -15,9 +14,7 @@ const ContactForm = ({title, handleAddContact, handleUpdateContact, handleFindDu
         ev.preventDefault();
 
         if (!duplicated) {
-            http.saveContact(contact).then(res => {
-                handleAddContact(res);
-            })
+            handleSaveContact(contact)
         } else {
             handleUpdateContact({...duplicated, number: contact.number})
         }

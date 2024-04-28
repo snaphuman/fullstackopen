@@ -3,8 +3,8 @@ const Contacts = ({list, handleRemoveContact}) => {
     return  (
         <ul>
         {
-            list.map((contact, index) => (
-                <li key={index}>
+            list.map((contact) => (
+                <li key={contact.id}>
                     { contact.name }
                     { contact.number }
                     <span>

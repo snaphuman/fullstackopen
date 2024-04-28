@@ -8,21 +8,16 @@ import http from "./utils/http";
 function App() {
   
   const [contacts, setContacts] = useState([]);
-  const [filtered, setFiltered] = useState(contacts);
+  const [filtered, setFiltered] = useState([]);
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
     http.getContacts()
-        .then(contacts => {
-          setContacts(contacts);
-          setFiltered(contacts);
+      .then(contacts => {
+        setContacts(contacts);
+        setFiltered(contacts);
     })
   }, [])
-
-  const handleSetContacts = (contact) => {
-    setContacts([...contacts, contact]);
-    setFiltered([...filtered, contact]);
-  }
 
   const handleFindDuplicated = (name) => {
     const duplicated = contacts.find(contact => contact.name === name);
@@ -34,13 +29,18 @@ function App() {
     }
   }
 
+  const handleSave = (contact) => {
+    http.saveContact(contact).then(res => {
+      setContacts([...contacts, res]);
+     })
+  }
+
   const handleUpdate = (contact) => {
     const msg = `${contact.name} is already added to phonebook, replace the  old number with a new one`;
     const confirm = window.confirm(msg);
 
     if (confirm) {
       http.updateContact(contact).then(res => {
-        console.log('updated', res);
         const newList = filtered.map(item => {
           if (item.id === res.id) {
             item.number = res.number;
@@ -83,7 +83,7 @@ function App() {
     <Filter title="Phonebook" handleFilter={handleFilter} />
     <ContactForm 
       title="Contact Info" 
-      handleAddContact={handleSetContacts} 
+      handleSaveContact={handleSave} 
       handleUpdateContact={handleUpdate} 
       handleFindDuplicated={handleFindDuplicated} 
     />

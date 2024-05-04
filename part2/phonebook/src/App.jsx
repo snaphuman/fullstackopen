@@ -32,6 +32,7 @@ function App() {
   const handleSave = (contact) => {
     http.saveContact(contact).then(res => {
       setContacts([...contacts, res]);
+      setFiltered([...contacts, res]);
      })
   }
 

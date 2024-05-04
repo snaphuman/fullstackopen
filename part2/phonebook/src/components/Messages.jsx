@@ -2,9 +2,9 @@
 const Messages = ({message}) => {
 
     return (
-        <>
-            {message}
-        </>
+        <div className={message.type}>
+            {message.text}
+        </div>
     )
 }
 

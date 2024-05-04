@@ -1,4 +1,3 @@
-import http from "../utils/http";
 import Header from "./Header";
 import { useState } from "react";
 

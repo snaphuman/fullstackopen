@@ -4,12 +4,13 @@ import Filter from "./components/Filter";
 import ContactForm from "./components/ContactForm";
 import Contacts from "./components/Contacts";
 import http from "./utils/http";
+import './index.css';
 
 function App() {
   
   const [contacts, setContacts] = useState([]);
   const [filtered, setFiltered] = useState([]);
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState({text: null, type: null});
 
   useEffect(() => {
     http.getContacts()
@@ -24,7 +25,7 @@ function App() {
     if (duplicated) {
       const msg = `${duplicated.name} is Duplicated`;
 
-      setMessage(!!duplicated ? msg : null);
+      handleMessage(msg, 'info');
       return duplicated;
     }
   }
@@ -33,7 +34,15 @@ function App() {
     http.saveContact(contact).then(res => {
       setContacts([...contacts, res]);
       setFiltered([...contacts, res]);
-     })
+
+      const msg = `${contact.name} was saved successfully`;
+      handleMessage(msg, 'success');
+
+     }).catch(_err => {
+        const msg = `Contact ${contact.name} does not exist!`;
+        handleMessage(msg, 'error');
+
+      });
   }
 
   const handleUpdate = (contact) => {
@@ -51,6 +60,12 @@ function App() {
 
         setFiltered(newList);
         setContacts(newList);
+
+        const msg = `${contact.name} was updated successfully`;
+        handleMessage(msg, 'success');
+      }).catch(_err => {
+        const msg = `Contact ${contact.name} does not exist!`;
+        handleMessage(msg, 'error');
       });
     }
   }
@@ -65,7 +80,13 @@ function App() {
 
         setFiltered(newList);
         setContacts(newList);
-      })
+
+        const msg = `${contact.name} was deleted successfully`;
+        handleMessage(msg, 'success');
+      }).catch(_err => {
+        const msg = `Contact ${contact.name} does not exist!`;
+        handleMessage(msg, 'error');
+      });
     }
   }
 
@@ -76,6 +97,13 @@ function App() {
     })
 
     setFiltered(filtered);
+  }
+
+  const handleMessage = (text, type) => {
+    console.log('message', text)
+    console.log('type', type)
+    setMessage({text, type})
+    setTimeout(() => setMessage({text: null, type: null}), 5000)
   }
 
   return (

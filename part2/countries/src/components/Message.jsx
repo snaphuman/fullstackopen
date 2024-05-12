@@ -1,9 +1,8 @@
-
-const Message = () => {
+const Message = ({ text }) => {
 
     return (
         <div>
-            Message
+            { text }
         </div>
     )
 }

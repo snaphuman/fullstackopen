@@ -1,6 +1,5 @@
 
-const Country = ({country}) => {
-
+const Country = ({country, forecast}) => {
 
     if (country) {
         return (
@@ -24,6 +23,9 @@ const Country = ({country}) => {
                 <div style={{fontSize: '10rem'}}>
                     { country.flag }
                 </div>
+                <br />
+                <p>Temperature: { forecast ? forecast.current.temp_c : null}</p>
+                <p>Wind: { forecast ? forecast.current.wind_kph : null}</p>
             </div>
         )
     } 

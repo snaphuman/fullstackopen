@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllCountries } from './utils/http';
+import { getAllCountries, getCurrentForecast } from './utils/http';
 
 import Search from './components/Search';
 import Countries from './components/Countries';
@@ -13,12 +13,21 @@ function App() {
   const [filtered, setFiltered] = useState([]);
   const [message, setMessage] = useState(null);
   const [country, setCountry] = useState(null);
+  const [forecast, setForecast] = useState(null);
 
   useEffect(() => {
       getAllCountries().then((res) => {
         setCountries(res)
       });
-  }, []);
+
+      if(country) {
+          const name = country.name.common;
+          getCurrentForecast(name).then(res => { 
+              console.log('forecast', res)
+              setForecast(res)
+          });
+      }
+  }, [country]);
 
   const handleFilter = (value) => {
     const pattern = new RegExp(value);
@@ -51,7 +60,7 @@ function App() {
       <Search filter={handleFilter}/>
       <Message text={message} />
       <Countries countries={filtered} handleSetCountry={handleSetCountry}/>
-      <Country country={country} />
+      <Country country={country} forecast={forecast}/>
     </>
   )
 }

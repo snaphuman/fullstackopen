@@ -42,11 +42,15 @@ function App() {
     } 
   }
 
+  const handleSetCountry = (country) => {
+    setCountry(country)
+  }
+
   return (
     <>
       <Search filter={handleFilter}/>
       <Message text={message} />
-      <Countries countries={filtered} />
+      <Countries countries={filtered} handleSetCountry={handleSetCountry}/>
       <Country country={country} />
     </>
   )

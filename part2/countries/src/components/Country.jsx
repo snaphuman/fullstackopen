@@ -21,7 +21,7 @@ const Country = ({country}) => {
                         })
                     }
                 </ul>
-                <div>
+                <div style={{fontSize: '10rem'}}>
                     { country.flag }
                 </div>
             </div>

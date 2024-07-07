@@ -4,7 +4,7 @@ const Contacts = ({list, handleRemoveContact}) => {
         <ul>
         {
             list.map((contact) => (
-                <li key={contact.id}>
+                <li key={contact.uuid}>
                     { contact.name }
                     { contact.number }
                     <span>

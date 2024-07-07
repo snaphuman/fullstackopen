@@ -1,5 +1,5 @@
 import axios from 'axios';
-const apiUrl = 'http://localhost:3001/contacts'; 
+const apiUrl = '/api/persons'; 
 
 const getContacts = () =>  {
     const req = axios.get(apiUrl);
@@ -11,13 +11,13 @@ const saveContact = (contact) => {
     return req.then(res => res.data);
 } 
 
-const removeContact = (id) => {
-    const req = axios.delete(`${apiUrl}/${id}`);
+const removeContact = (uuid) => {
+    const req = axios.delete(`${apiUrl}/${uuid}`);
     return req.then(res => res.data);
 }
 
 const updateContact = (contact) => {
-    const req = axios.put(`${apiUrl}/${contact.id}`, contact);
+    const req = axios.put(`${apiUrl}/${contact.uuid}`, contact);
     return req.then(res => res.data);
 }
 

@@ -52,7 +52,7 @@ function App() {
     if (confirm) {
       http.updateContact(contact).then(res => {
         const newList = filtered.map(item => {
-          if (item.id === res.id) {
+          if (item.uuid === contact.uuid) {
             item.number = res.number;
           }
           return item;
@@ -70,28 +70,28 @@ function App() {
     }
   }
 
-  const handleRemove = ({id, name}) => {
+  const handleRemove = ({uuid, name}) => {
     const msg = `Are you sure to remove ${name}?`;
     const confirm = window.confirm(msg);
 
     if (confirm) {
-      http.removeContact(id).then((res) => {
-        const newList = filtered.filter(item => item.id !== res.id);
+      http.removeContact(uuid).then((res) => {
+        const newList = filtered.filter(item => item.uuid !== uuid);
 
         setFiltered(newList);
         setContacts(newList);
 
-        const msg = `${contact.name} was deleted successfully`;
+        const msg = `${name} was deleted successfully`;
         handleMessage(msg, 'success');
       }).catch(_err => {
-        const msg = `Contact ${contact.name} does not exist!`;
+        const msg = `Contact ${name} does not exist!`;
         handleMessage(msg, 'error');
       });
     }
   }
 
   const handleFilter = (value) => {
-    const pattern = new RegExp(value);
+    const pattern = new RegExp(value.toLowerCase());
     const filtered = contacts.filter(contact => {
       return pattern.test(contact.name.toLowerCase());
     })
@@ -100,8 +100,6 @@ function App() {
   }
 
   const handleMessage = (text, type) => {
-    console.log('message', text)
-    console.log('type', type)
     setMessage({text, type})
     setTimeout(() => setMessage({text: null, type: null}), 5000)
   }
